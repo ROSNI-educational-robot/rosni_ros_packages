@@ -1,0 +1,229 @@
+<?xml version="1.0"?>
+<robot name="first_robot">
+
+    <!-- Materials -->
+
+    <material name="blue">
+        <color rgba="0 0 1 1" />
+    </material>
+
+    <material name="red">
+        <color rgba="0.7 0 0 1" />
+    </material>
+
+    <material name="gray">
+        <color rgba="0.7 0.7 0.7 1" />
+    </material>
+    <material name="gray_dark">
+        <color rgba="0.4 0.4 0.4 1" />
+    </material>
+
+    <material name="white">
+        <color rgba="1 1 1 1" />
+    </material>
+    <material name="black">
+        <color rgba="0.1 0.1 0.1 1" />
+    </material>
+
+    <!-- ______________________ LINKS ______________________ -->
+
+    <!-- Base Footprint-->
+    <link name="base_footprint" />
+
+    <!-- Base -->
+    <link name="base_link">
+        <inertial>
+
+            <origin xyz="0 0 0" />
+            <mass value="2" />
+            <inertia ixx="6.63684e-07" ixy="0" ixz="0" iyy="6.63684e-07" iyz="0" izz="9.40333e-07" />
+
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/RobotV2.STL" scale="0.001 0.001 0.001" />
+            </geometry>
+            <!-- We move up the cilinder to get the origin on the bottom -->
+            <origin rpy="1.5707 0 0" xyz="-0.1325 0.1325 -0.02" />
+            <!-- material -->
+            <material name="gray" />
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/RobotV2.STL" scale="0.001 0.001 0.001" />
+            </geometry>
+            <!-- We move up the cilinder to get the origin on the bottom -->
+            <origin rpy="1.5707 0 0" xyz="-0.1325 0.1325 -0.02" />
+        </collision>
+    </link>
+
+
+    <!-- Wheels -->
+    <link name="right_wheel">
+        <inertial>
+
+            <origin xyz="0 0 0" />
+            <mass value="0.05" />
+            <inertia ixx="6.63684e-07" ixy="0" ixz="0" iyy="6.63684e-07" iyz="0" izz="9.40333e-07" />
+
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/WheelAssembly2.STL" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.0425 -0.0425 -0.047" />
+            <material name="red" />
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/WheelAssembly2.STL" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.0425 -0.0425 -0.047" />
+        </collision>
+    </link>
+    <link name="left_wheel">
+        <inertial>
+
+            <origin xyz="0 0 0" />
+            <mass value="0.05" />
+            <inertia ixx="6.63684e-07" ixy="0" ixz="0" iyy="6.63684e-07" iyz="0" izz="9.40333e-07" />
+
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/WheelAssembly.STL" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.0425 -0.0425 0" />
+            <material name="red" />
+        </visual>
+        <collision>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/WheelAssembly.STL" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.0425 -0.0425 0" />
+        </collision>
+    </link>
+
+
+    <!-- Lidar -->
+    <gazebo reference="laz_base">
+        <material>Gazebo/Grey</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+    </gazebo>
+    <link name="lidar_link">
+        <inertial>
+            <origin xyz="-0.00029774 0.0066667 0.00013047" rpy="0 0 0" />
+            <mass value="0.15717" />
+            <inertia ixx="6.7885E-05" ixy="-1.3987E-07" ixz="-8.1554E-07" iyy="0.00013173" iyz="-9.0932E-08" izz="7.1972E-05" />
+        </inertial>
+        <visual>
+            <geometry>
+                <mesh filename="package://robot_description/meshes/X4.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+            <origin rpy="0 0 0" xyz="-0.006 0.0004 0.025" />
+            <material name="blue" />
+        </visual>
+        <collision>
+            <origin rpy="0 0 0" xyz="-0.006 0.0004 0.025" />
+            <geometry>
+                <mesh filename="package://robot_description/meshes/X4.stl" scale="0.001 0.001 0.001" />
+            </geometry>
+        </collision>
+    </link>
+    <gazebo reference="laz_rot">
+        <material>Gazebo/RedGlow</material>
+        <mu1>0.2</mu1>
+        <mu2>0.2</mu2>
+        <sensor type="ray" name="laz">
+            <always_on>true</always_on>
+            <!-- <pose>${laz_radius} 0 ${laz_height/4} ${pi/2} 0 0</pose> -->
+            <pose>0.08 0 0.02 1.5708 0 0</pose>
+            <visualize>true</visualize>
+            <update_rate>30</update_rate>
+            <ray>
+                <scan>
+                    <horizontal>
+                        <samples>15</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.3927</min_angle>
+                        <max_angle>0.3927</max_angle>
+                    </horizontal>
+                    <vertical>
+                        <samples>1</samples>
+                        <resolution>1</resolution>
+                        <min_angle>-0.15</min_angle>
+                        <max_angle>0.15</max_angle>
+                    </vertical>
+                </scan>
+                <range>
+                    <min>0.05</min>
+                    <max>15</max>
+                    <resolution>0.02</resolution>
+                </range>
+            </ray>
+        </sensor>
+    </gazebo>
+    <link name="laser_frame">
+        <inertial>
+            <origin xyz="0.0 0.0 0.0" rpy="0 0 0" />
+            <mass value="0.25482" />
+            <inertia ixx="8.9194E-05" ixy="1.8116E-07" ixz="3.6435E-08" iyy="0.00018279" iyz="2.423E-07" izz="0.00011103" />
+        </inertial>
+    </link>
+
+    <!-- ______________________ JOINTS ______________________ -->
+
+    <joint name="footprint_to_base" type="fixed">
+        <parent link="base_footprint" />
+        <child link="base_link" />
+        <origin rpy="0 0 -1.5707" xyz="0.0 0 0.06" />
+    </joint>
+
+    <joint name="right_wheel_to_motor" type="continuous">
+        <parent link="base_link" />
+        <child link="right_wheel" />
+        <!-- Axis to perform the revolution -->
+        <axis xyz="0 0 1" />
+        <origin rpy="0 -1.5707 0" xyz="0.108 0 0.019" />
+    </joint>
+
+    <joint name="left_wheel_to_motor" type="continuous">
+        <parent link="base_link" />
+        <child link="left_wheel" />
+        <!-- Axis to perform the revolution -->
+        <axis xyz="0 0 1" />
+        <origin rpy="0 -1.5707 0" xyz="-0.108 0 0.019" />
+    </joint>
+
+    <joint name="base_to_lidar" type="fixed">
+        <parent link="base_link" />
+        <child link="lidar_link" />
+        <!-- The translation between both link origins -->
+        <origin rpy="0 0 0" xyz="0 0 0.12" />
+    </joint>
+
+    <joint name="laser_to_lidar" type="fixed">
+        <parent link="lidar_link" />
+        <child link="laser_frame" />
+        <!-- The translation between both link origins -->
+        <origin rpy="0 0 0" xyz="-0.006 0.0004 0.0" />
+    </joint>
+
+    <gazebo>
+        <plugin filename="libgazebo_ros_diff_drive.so" name="differential_drive_controller">
+            <legacyMode>false</legacyMode>
+            <alwaysOn>true</alwaysOn>
+            <updateRate>20</updateRate>
+            <leftJoint>left_wheel_to_motor</leftJoint>
+            <rightJoint>right_wheel_to_motor</rightJoint>
+            <wheelSeparation>0.216</wheelSeparation>
+            <wheelDiameter>0.085</wheelDiameter>
+            <torque>0.1</torque>
+            <commandTopic>/robot/cmd_vel</commandTopic>
+            <odometryTopic>odom</odometryTopic>
+            <odometryFrame>odom</odometryFrame>
+            <robotBaseFrame>base_footprint</robotBaseFrame>
+        </plugin>
+    </gazebo>
+</robot>
