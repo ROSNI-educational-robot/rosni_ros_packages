@@ -1,0 +1,17 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Robot URDF loading -->
+    <param name="robot_description" textfile="$(find robot_description)/urdf/robot.urdf" />
+
+    <!-- robot state publisher node -->
+    <node name="robot_state_publisher" pkg="robot_state_publisher" type="robot_state_publisher" />
+
+    <!-- Joystick teleoperation nodes -->
+    <include file="$(find robot_teleop)/launch/joy_launch.launch" />
+
+    <!-- Robot controller node -->
+    <node pkg="robot_controller" type="controller.py" name="robot_dif_controller" />
+
+    <!-- Lidar node -->
+    <include file="$(find ydlidar_ros)/launch/X4.launch"/>
+</launch>

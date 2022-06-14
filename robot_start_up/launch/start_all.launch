@@ -1,0 +1,10 @@
+<?xml version="1.0"?>
+<launch>
+    <!-- Robot init -->
+    <include file="$(find robot_start_up)/launch/initialization.launch" />
+
+    <!-- Node controller -->
+    <node pkg="node_controller" type="start_slam_nav_node.py" name="start_slam_nav_node" />
+
+    <node pkg="getway_ros" type="socket_node.py" name="socket_node"/>
+</launch>

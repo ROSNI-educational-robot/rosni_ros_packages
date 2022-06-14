@@ -1,0 +1,15 @@
+<launch>
+    <!-- Robot URDF loading -->
+    <!--<include file="$(find robot_start_up)/launch/initialization.launch"/>-->
+    <!--<param name="map_update_interval" type="double" value="5"/>-->
+    <!-- slam gmapping node -->
+    <node name="slam_gmapping" pkg="gmapping" type="slam_gmapping">
+        <param name="xmin" value="-10.0"/>
+        <param name="ymin" value="-10.0"/>
+        <param name="xmax" value="10.0"/>
+        <param name="ymax" value="10.0"/>
+        <param name="maxUrange" value="30.0"/>
+        <param name="delta" value="0.05"/>  
+    </node>
+</launch>
+
