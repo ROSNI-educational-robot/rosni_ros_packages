@@ -2,6 +2,11 @@
 The Robot uses a RaspberryPi4 1Gb as the CPU with Ubuntu server 20.04 LTS and all the skills will be implemented as ROS nodes/services.
 The ROS distribution is the Noetic, as it is the one that works in Ubuntu 20.04 LTS.
 
+# Dependencies
+This project uses packages from other users. Those are:
+- YDLidar ros node
+- joy
+
 # Linux Set Up
 This Robot needs to manage the network connections, to trust bluetooth controllers, to handle procesess as ROS.
 
